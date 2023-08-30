@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Random User</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(237, 244, 252)
+        }
+        .container {
+        
+            width: 100%;
+            height: 100vh;
+        }
+        .black-backgroud {
+            background-color: rgb(43, 39, 39);
+            width: 100%;
+            height: 50%;
+        }
+        .content {
+            width: 100%;
+            height: 
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .content-child {
+           border-radius: 10px;
+            width: 90%;
+            height: 400px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-top {
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            height: 33.3%;
+            width: 100%;
+            background-color: rgb(240, 247, 250);
+            z-index: 1;
+            border-bottom: 1px solid rgb(121, 119, 119);
+
+        }
+        .content-bottom{
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            height: 66.6%;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 1px 15px rgb(156, 156, 156);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: ;
+
+        }
+        #picture {
+            height: 130px;
+            width: 130px;
+            border: 5px solid rgb(249, 252, 253);
+            position: absolute;
+            top: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgb(88, 88, 88);
+            object-fit: cover;
+            z-index: 2;
+        }
+        #label {
+            margin-top: 80px;
+            color: rgb(159, 162, 163);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        #name {
+            margin-top: 0;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+        .icons {
+            width: 90%;
+            height: 40px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+        button {
+            background-color: rgb(61, 185, 226);
+            color: white;
+            font-size: 15px;
+            padding: 5px;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+        .icons > i:hover {
+            cursor: pointer;
+        }
+        @media (min-width: 700px) {
+            body {
+                background-color: ;
+            }
+            .content-child {
+            border-radius: 10px;
+            width: 650px;
+            height: 400px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="black-backgroud"></div>
+        <div class="content">
+            <div class="content-child">
+                <div class="content-top"></div>
+                <div class="content-bottom">
+                    <img id="picture" src="" alt="">
+                    <p id="label">My <span id="about">name</span> is</p>
+                    <p id="name"></p>
+                    <div class="icons">
+                        <i class="fa fa-user-o" arial-hidden="true"></i>
+                        <i class="fa fa-envelope-open-o" arial-hidden="true"></i>
+                        <i class="fa fa-calendar-times-o" arial-hidden="true"></i>
+                        <i class="fa fa-address-card-o" arial-hidden="true"></i>
+                        <i class="fa fa-phone" arial-hidden="true"></i>
+                        <i class="fa fa-unlock" arial-hidden="true"></i>
+                    </div>
+                    <button id="btn">Random User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let randomBtn = document.getElementById('btn');
+    let picture = document.getElementById('picture');
+    let name = document.getElementById('name');
+    let about = document.getElementById('about');
+    let user = document.querySelector('.fa-user-o');
+    let email = document.querySelector('.fa-envelope-open-o');
+    let birthDay = document.querySelector('.fa-calendar-times-o');
+    let address = document.querySelector('.fa-address-card-o');
+    let phone = document.querySelector('.fa-phone');
+    let password = document.querySelector('.fa-unlock');
+    let ourRequest = new XMLHttpRequest;
+    ourRequest.open("GET", "https://randomuser.me/api");
+    ourRequest.onload = function(){
+        let ourResponse = JSON.parse(ourRequest.responseText);
+        about.innerHTML = 'name';
+        name.innerHTML = ourResponse.results[0].name.title +" "+ ourResponse.results[0].name.first +" "+ ourResponse.results[0].name.last;
+        picture.src = ourResponse.results[0].picture.large;
+        user.addEventListener('click', function(){
+            about.innerHTML = 'name';
+            name.innerHTML = ourResponse.results[0].name.title +" "+ ourResponse.results[0].name.first +" "+ ourResponse.results[0].name.last;
+        });
+        email.addEventListener('click', function (){
+            about.innerHTML = 'email';
+            name.innerHTML = ourResponse.results[0].email;
+        })
+        birthDay.addEventListener('click', function(){
+            about.innerHTML = 'birthday';
+            name.innerHTML = ourResponse.results[0].dob.date.slice(0,10);
+        })
+        address.addEventListener('click', function (){
+            about.innerHTML = 'address';
+            name.innerHTML = ourResponse.results[0].address;
+        })
+        phone.addEventListener('click', function(){
+            about.innerHTML = 'phone number';
+            name.innerHTML = ourResponse.results[0].phone;
+        })
+        password.addEventListener('click', function (){
+            about.innerHTML = 'password';
+            name.innerHTML = ourResponse.results[0].login.password;
+        })
+
+    }
+    ourRequest.send();
+    randomBtn.addEventListener('click', function(){
+        ourRequest.open("GET", "https://randomuser.me/api");
+        ourRequest.onload = function(){
+        let ourResponse = JSON.parse(ourRequest.responseText);
+        about.innerHTML = 'name';
+        name.innerHTML = ourResponse.results[0].name.title +" "+ ourResponse.results[0].name.first +" "+ ourResponse.results[0].name.last;
+        picture.src = ourResponse.results[0].picture.large;
+        user.addEventListener('click', function(){
+            about.innerHTML = 'name';
+            name.innerHTML = ourResponse.results[0].name.title +" "+ ourResponse.results[0].name.first +" "+ ourResponse.results[0].name.last;
+        });
+        email.addEventListener('click', function (){
+            about.innerHTML = 'email';
+            name.innerHTML = ourResponse.results[0].email;
+        })
+        birthDay.addEventListener('click', function(){
+            about.innerHTML = 'birthday';
+            name.innerHTML = ourResponse.results[0].dob.date.slice(0,10);
+        })
+        address.addEventListener('click', function (){
+            about.innerHTML = 'address';
+            name.innerHTML = ourResponse.results[0].address;
+        })
+        phone.addEventListener('click', function(){
+            about.innerHTML = 'phone number';
+            name.innerHTML = ourResponse.results[0].phone;
+        })
+        password.addEventListener('click', function (){
+            about.innerHTML = 'password';
+            name.innerHTML = ourResponse.results[0].login.password;
+        })
+        }
+        ourRequest.send();
+      
+    
+    }
+    );
+</script>
+</html>
